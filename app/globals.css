@@ -1,26 +1,63 @@
 @import "tailwindcss";
+@config "../tailwind.config.ts";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --color-bg: #0f0f11;
+  --color-charcoal-elevated: #17171a;
+  --color-elevated: #1c1c21;
+  --color-foreground: #fafafa;
+  --color-muted: #a1a1aa;
+  --color-accent: #f5c518;
+  --color-accent-warm: #fb923c;
+  --color-accent-deep: #c9a227;
+  --color-flair: #fb7185;
+  --color-accent-glow: rgba(245, 197, 24, 0.5);
+  --color-mesh-1: rgba(245, 197, 24, 0.16);
+  --color-mesh-2: rgba(251, 146, 60, 0.14);
+  --color-mesh-3: rgba(251, 113, 133, 0.1);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+@layer utilities {
+  .text-gradient-brand {
+    background-image: linear-gradient(
+      105deg,
+      var(--color-foreground) 0%,
+      #fff7c2 28%,
+      var(--color-accent) 48%,
+      var(--color-accent-warm) 72%,
+      var(--color-flair) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  .mesh-backdrop {
+    background-image:
+      radial-gradient(ellipse 100% 70% at 100% -10%, var(--color-mesh-1), transparent 52%),
+      radial-gradient(ellipse 90% 55% at -5% 105%, var(--color-mesh-2), transparent 48%),
+      radial-gradient(ellipse 55% 45% at 85% 95%, var(--color-mesh-3), transparent 50%);
+  }
+
+  .mesh-backdrop-soft {
+    background-image:
+      radial-gradient(ellipse 80% 50% at 90% 0%, var(--color-mesh-1), transparent 55%),
+      radial-gradient(ellipse 70% 45% at 0% 100%, var(--color-mesh-2), transparent 50%);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  body {
+    @apply bg-charcoal text-surface-foreground font-sans antialiased;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
 }

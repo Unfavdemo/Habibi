@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 56" role="img" aria-label="HiTouch">
+  <text
+    x="50%"
+    y="50%"
+    dominant-baseline="middle"
+    text-anchor="middle"
+    fill="#fafafa"
+    font-family="system-ui, -apple-system, Segoe UI, sans-serif"
+    font-size="26"
+    font-weight="700"
+    letter-spacing="0.06em"
+  >HiTouch</text>
+</svg>
