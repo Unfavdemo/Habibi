@@ -55,13 +55,7 @@ export function MagneticButton({
     [reduceMotion, x, y],
   );
 
-  if (reduceMotion) {
-    return (
-      <Link href={href} className={cn(className)}>
-        {children}
-      </Link>
-    );
-  }
+  const isExternal = href.startsWith("http");
 
   return (
     <motion.span
@@ -75,6 +69,7 @@ export function MagneticButton({
         onPointerMove={onPointerMove}
         onPointerLeave={reset}
         onPointerCancel={reset}
+        {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
       >
         {children}
       </MotionLink>

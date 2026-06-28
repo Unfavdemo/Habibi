@@ -61,14 +61,12 @@ export function CollaborationLogo3D({
       onPointerLeave={onPointerLeave}
     >
       <div
-        className="relative w-full max-w-md transform-gpu transition-transform duration-200 ease-out"
+        className="relative w-full max-w-md transform-gpu transition-transform duration-200 ease-out motion-reduce:transition-none"
         style={
-          reduceMotion
-            ? undefined
-            : ({
-                transform: tilt,
-                transformStyle: "preserve-3d",
-              } as CSSProperties)
+          {
+            transform: reduceMotion ? baseTilt : tilt,
+            transformStyle: "preserve-3d",
+          } as CSSProperties
         }
       >
         {/* Depth stack */}

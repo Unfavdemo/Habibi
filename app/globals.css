@@ -2,19 +2,20 @@
 @config "../tailwind.config.ts";
 
 :root {
-  --color-bg: #0f0f11;
-  --color-charcoal-elevated: #17171a;
-  --color-elevated: #1c1c21;
-  --color-foreground: #fafafa;
-  --color-muted: #a1a1aa;
-  --color-accent: #f5c518;
-  --color-accent-warm: #fb923c;
-  --color-accent-deep: #c9a227;
-  --color-flair: #fb7185;
-  --color-accent-glow: rgba(245, 197, 24, 0.5);
-  --color-mesh-1: rgba(245, 197, 24, 0.16);
-  --color-mesh-2: rgba(251, 146, 60, 0.14);
-  --color-mesh-3: rgba(251, 113, 133, 0.1);
+  --color-bg: #050508;
+  --color-charcoal-elevated: #0c0c10;
+  --color-elevated: #121218;
+  --color-foreground: #f4f4f5;
+  --color-muted: #9ca3af;
+  --color-accent: #39ff14;
+  --color-accent-warm: #ff4d00;
+  --color-accent-deep: #22c55e;
+  --color-flair: #00e5ff;
+  --color-accent-glow: rgba(57, 255, 20, 0.45);
+  --color-pressure-glow: rgba(255, 77, 0, 0.4);
+  --color-mesh-1: rgba(57, 255, 20, 0.12);
+  --color-mesh-2: rgba(255, 77, 0, 0.1);
+  --color-mesh-3: rgba(0, 229, 255, 0.08);
 }
 
 @layer utilities {
@@ -22,9 +23,32 @@
     background-image: linear-gradient(
       105deg,
       var(--color-foreground) 0%,
-      #fff7c2 28%,
-      var(--color-accent) 48%,
-      var(--color-accent-warm) 72%,
+      var(--color-accent) 35%,
+      var(--color-accent-warm) 68%,
+      var(--color-flair) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .text-gradient-phresh {
+    background-image: linear-gradient(
+      90deg,
+      var(--color-accent) 0%,
+      #b8ff3c 50%,
+      var(--color-accent-deep) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .text-gradient-pressure {
+    background-image: linear-gradient(
+      90deg,
+      var(--color-accent-warm) 0%,
+      #ff8c42 50%,
       var(--color-flair) 100%
     );
     -webkit-background-clip: text;
@@ -44,11 +68,112 @@
       radial-gradient(ellipse 80% 50% at 90% 0%, var(--color-mesh-1), transparent 55%),
       radial-gradient(ellipse 70% 45% at 0% 100%, var(--color-mesh-2), transparent 50%);
   }
+
+  .pressure-grid {
+    background-image:
+      linear-gradient(rgba(57, 255, 20, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(57, 255, 20, 0.04) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  .glow-line {
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--color-accent) 20%,
+      var(--color-accent-warm) 50%,
+      var(--color-flair) 80%,
+      transparent
+    );
+  }
+
+  .text-outline {
+    -webkit-text-stroke: 1px rgba(57, 255, 20, 0.35);
+    color: transparent;
+  }
+
+  .text-outline-warm {
+    -webkit-text-stroke: 1px rgba(255, 77, 0, 0.4);
+    color: transparent;
+  }
+
+  .text-outline-white {
+    -webkit-text-stroke: 1px rgba(244, 244, 245, 0.12);
+    color: transparent;
+  }
+
+  .grain-overlay {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity: 0.035;
+    mix-blend-mode: overlay;
+  }
+
+  .corner-brackets {
+    background:
+      linear-gradient(var(--color-accent), var(--color-accent)) top left / 16px 2px no-repeat,
+      linear-gradient(var(--color-accent), var(--color-accent)) top left / 2px 16px no-repeat,
+      linear-gradient(var(--color-accent-warm), var(--color-accent-warm)) top right / 16px 2px no-repeat,
+      linear-gradient(var(--color-accent-warm), var(--color-accent-warm)) top right / 2px 16px no-repeat,
+      linear-gradient(var(--color-flair), var(--color-flair)) bottom left / 16px 2px no-repeat,
+      linear-gradient(var(--color-flair), var(--color-flair)) bottom left / 2px 16px no-repeat,
+      linear-gradient(var(--color-accent), var(--color-accent)) bottom right / 16px 2px no-repeat,
+      linear-gradient(var(--color-accent), var(--color-accent)) bottom right / 2px 16px no-repeat;
+  }
+
+  .glitch-text {
+    position: relative;
+  }
+
+  .glitch-text:hover {
+    animation: glitch-skew 0.4s ease infinite;
+  }
+
+  @keyframes glitch-skew {
+    0%, 100% { transform: skew(0deg); }
+    20% { transform: skew(-1deg); }
+    40% { transform: skew(1deg); }
+    60% { transform: skew(-0.5deg); }
+    80% { transform: skew(0.5deg); }
+  }
+
+  .float-slow {
+    animation: float-slow 6s ease-in-out infinite;
+  }
+
+  @keyframes float-slow {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  .belief-carousel {
+    scroll-behavior: smooth;
+    scroll-snap-type: x proximity;
+    scroll-padding-inline: max(1rem, calc((100% - 340px) / 2));
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .belief-carousel::-webkit-scrollbar {
+    display: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .belief-carousel {
+      scroll-behavior: auto;
+    }
+  }
 }
 
 @layer base {
   body {
     @apply bg-charcoal text-surface-foreground font-sans antialiased;
+  }
+
+  ::selection {
+    background: rgba(57, 255, 20, 0.25);
+    color: var(--color-foreground);
   }
 
   @media (prefers-reduced-motion: reduce) {

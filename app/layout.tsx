@@ -1,38 +1,57 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Outfit } from "next/font/google";
+import { Bebas_Neue, DM_Sans, JetBrains_Mono } from "next/font/google";
 import { Navigation } from "@/components/layout/Navigation";
+import { Footer } from "@/components/layout/Footer";
+import { SceneEffects } from "@/components/effects/SceneEffects";
 import "./globals.css";
 
-const outfit = Outfit({
+const bebas = Bebas_Neue({
   variable: "--font-display",
+  weight: "400",
   subsets: ["latin"],
   display: "swap",
 });
 
-const inter = Inter({
+const dmSans = DM_Sans({
   variable: "--font-body",
   subsets: ["latin"],
   display: "swap",
 });
 
+const jetbrains = JetBrains_Mono({
+  variable: "--font-mono",
+  subsets: ["latin"],
+  display: "swap",
+});
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://rellyhabibi.vercel.app"),
+  metadataBase: new URL("https://phreshunderpressure.com"),
   title: {
-    default: "Relly Habibi | Cherrell Woodley",
-    template: "%s | Relly Habibi",
+    default: "PHRESH UNDER PRESSURE™ | Freelancer Community + Cultural Platform",
+    template: "%s | PHRESH UNDER PRESSURE",
   },
   description:
-    "Cherrell Woodley (Relly Habibi) — producer, cultural amplification specialist, and event project manager. Storytelling via culture, events, media, and the arts.",
+    "Freelancer community and cultural platform for underrepresented creatives. Building under pressure, 1 invoice & 1 vision at a time. Stay PHRESH.",
   openGraph: {
-    title: "Relly Habibi | Cherrell Woodley",
+    title: "PHRESH UNDER PRESSURE™",
     description:
-      "Producer and cultural amplification specialist — events, creative direction, and storytelling.",
+      "Freelancer Community + Cultural Platform for Underrepresented Creatives. Stay PHRESH.",
     type: "website",
+    url: "https://phreshunderpressure.com",
   },
+  keywords: [
+    "PHRESH UNDER PRESSURE",
+    "freelancer community",
+    "underrepresented creatives",
+    "cultural platform",
+    "Black creatives",
+    "freelance resources",
+    "Stay PHRESH",
+  ],
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0f0f11",
+  themeColor: "#050508",
   width: "device-width",
   initialScale: 1,
 };
@@ -45,9 +64,12 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${outfit.variable} ${inter.variable} h-full scroll-smooth`}
+      data-scroll-behavior="smooth"
+      className={`${bebas.variable} ${dmSans.variable} ${jetbrains.variable} h-full scroll-smooth`}
     >
-      <body className="min-h-full flex flex-col bg-charcoal">
+      <body className="relative min-h-full flex flex-col bg-charcoal">
+        <div className="pointer-events-none fixed inset-0 z-[45] grain-overlay" aria-hidden />
+        <SceneEffects />
         <a
           href="#main"
           className="absolute left-4 top-0 z-[100] -translate-y-full rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-charcoal shadow-lg transition-transform focus:translate-y-4 focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-charcoal"
@@ -56,6 +78,7 @@ export default function RootLayout({
         </a>
         <Navigation />
         {children}
+        <Footer />
       </body>
     </html>
   );

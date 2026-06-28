@@ -3,13 +3,15 @@
 import Link from "next/link";
 import { useCallback, useEffect, useId, useState } from "react";
 import { Menu, X } from "lucide-react";
+import { profile } from "@/data/profile";
 import { cn } from "@/lib/utils";
 
 const navItems = [
-  { href: "#about", label: "About" },
-  { href: "#work", label: "Work" },
-  { href: "#timeline", label: "Timeline" },
-  { href: "#contact", label: "Contact" },
+  { href: "/who-we-are", label: "Who We Are" },
+  { href: "/founders", label: "Founders" },
+  { href: "/#platform", label: "Platform" },
+  { href: "/#media", label: "Media" },
+  { href: "/#contact", label: "Contact" },
 ] as const;
 
 export function Navigation() {
@@ -35,17 +37,22 @@ export function Navigation() {
   }, [open]);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-white/10 bg-charcoal/85 backdrop-blur-md">
+    <header className="sticky top-0 z-50 border-b border-white/10 bg-charcoal/90 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <Link
           href="/"
-          className="bg-gradient-to-r from-surface-foreground via-accent to-accent-warm bg-clip-text font-display text-lg font-semibold tracking-tight text-transparent transition-opacity hover:opacity-90"
+          className="group flex items-center gap-2 transition-opacity hover:opacity-90"
         >
-          Relly Habibi
+          <span className="font-display text-xl tracking-wider text-accent sm:text-2xl">
+            PHRESH
+          </span>
+          <span className="hidden font-mono text-[10px] uppercase tracking-[0.25em] text-surface-muted sm:inline">
+            under pressure{profile.trademark}
+          </span>
         </Link>
 
         <nav
-          className="hidden items-center gap-8 md:flex"
+          className="hidden items-center gap-7 md:flex"
           aria-label="Primary"
         >
           {navItems.map((item) => (
@@ -57,6 +64,14 @@ export function Navigation() {
               {item.label}
             </Link>
           ))}
+          <Link
+            href={profile.youtube}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex h-9 items-center rounded-full border border-accent/40 bg-accent/10 px-4 text-xs font-semibold uppercase tracking-wider text-accent transition-[border-color,box-shadow] hover:border-accent hover:shadow-glow"
+          >
+            Watch
+          </Link>
         </nav>
 
         <button
@@ -92,6 +107,15 @@ export function Navigation() {
               {item.label}
             </Link>
           ))}
+          <Link
+            href={profile.youtube}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-2 rounded-lg border border-accent/30 bg-accent/10 px-3 py-3 text-center text-sm font-semibold uppercase tracking-wider text-accent"
+            onClick={close}
+          >
+            Watch on YouTube
+          </Link>
         </nav>
       </div>
     </header>
