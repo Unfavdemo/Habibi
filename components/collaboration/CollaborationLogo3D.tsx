@@ -13,6 +13,8 @@ import { cn } from "@/lib/utils";
 type CollaborationLogo3DProps = {
   children: React.ReactNode;
   className?: string;
+  /** `contrast` — flat, high-readability stage for work cards. `metallic` — glossy 3D plate. */
+  variant?: "contrast" | "metallic";
 };
 
 const baseTilt = "rotateX(8deg) rotateY(-10deg)";
@@ -23,10 +25,33 @@ const baseTilt = "rotateX(8deg) rotateY(-10deg)";
 export function CollaborationLogo3D({
   children,
   className,
+  variant = "contrast",
 }: CollaborationLogo3DProps) {
   const reduceMotion = useReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
   const [tilt, setTilt] = useState(baseTilt);
+
+  if (variant === "contrast") {
+    return (
+      <div
+        className={cn(
+          "relative flex min-h-[200px] w-full items-center justify-center",
+          "bg-gradient-to-b from-zinc-50 to-zinc-100/90",
+          className,
+        )}
+      >
+        <div
+          className={cn(
+            "flex w-full max-w-[min(100%,22rem)] items-center justify-center",
+            "rounded-2xl border border-black/[0.08] bg-white px-5 py-7 sm:px-7 sm:py-9",
+            "shadow-[0_10px_32px_-14px_rgba(0,0,0,0.22)]",
+          )}
+        >
+          {children}
+        </div>
+      </div>
+    );
+  }
 
   const onPointerMove = useCallback(
     (e: ReactPointerEvent<HTMLDivElement>) => {
@@ -89,7 +114,7 @@ export function CollaborationLogo3D({
           )}
         >
           <div
-            className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/30 via-transparent to-transparent opacity-55 mix-blend-overlay"
+            className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-transparent opacity-35"
             aria-hidden
           />
           <div

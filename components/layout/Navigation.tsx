@@ -1,22 +1,25 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useId, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { profile } from "@/data/profile";
 import { cn } from "@/lib/utils";
 
 const navItems = [
-  { href: "/who-we-are", label: "Who We Are" },
-  { href: "/founders", label: "Founders" },
-  { href: "/#platform", label: "Platform" },
-  { href: "/#media", label: "Media" },
-  { href: "/#contact", label: "Contact" },
+  { href: "/", label: "Home" },
+  { href: "/my-story", label: "My Story" },
+  { href: "/services", label: "Services" },
+  { href: "/work", label: "Work" },
+  { href: "/keep-it-phresh", label: "Keep it phresh" },
 ] as const;
 
 export function Navigation() {
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const panelId = useId();
+  const isPhresh = pathname === "/keep-it-phresh";
 
   const close = useCallback(() => setOpen(false), []);
 
@@ -37,46 +40,42 @@ export function Navigation() {
   }, [open]);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-white/10 bg-charcoal/90 backdrop-blur-md">
+    <header
+      className={cn(
+        "sticky top-0 z-50 border-b backdrop-blur-md",
+        isPhresh
+          ? "border-white/10 bg-charcoal/90"
+          : "border-border bg-charcoal/95",
+      )}
+    >
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <Link
           href="/"
-          className="group flex items-center gap-2 transition-opacity hover:opacity-90"
+          className="font-display text-xl tracking-wide text-surface-foreground transition-opacity hover:opacity-80 sm:text-2xl"
         >
-          <span className="font-display text-xl tracking-wider text-accent sm:text-2xl">
-            PHRESH
-          </span>
-          <span className="hidden font-mono text-[10px] uppercase tracking-[0.25em] text-surface-muted sm:inline">
-            under pressure{profile.trademark}
-          </span>
+          {profile.brandName}
         </Link>
 
-        <nav
-          className="hidden items-center gap-7 md:flex"
-          aria-label="Primary"
-        >
+        <nav className="hidden items-center gap-8 md:flex" aria-label="Primary">
           {navItems.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className="text-sm font-medium text-surface-muted transition-colors hover:text-accent"
+              className={cn(
+                "text-sm font-medium transition-colors",
+                pathname === item.href
+                  ? "text-accent"
+                  : "text-surface-muted hover:text-surface-foreground",
+              )}
             >
               {item.label}
             </Link>
           ))}
-          <Link
-            href={profile.youtube}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex h-9 items-center rounded-full border border-accent/40 bg-accent/10 px-4 text-xs font-semibold uppercase tracking-wider text-accent transition-[border-color,box-shadow] hover:border-accent hover:shadow-glow"
-          >
-            Watch
-          </Link>
         </nav>
 
         <button
           type="button"
-          className="inline-flex items-center justify-center rounded-lg border border-white/15 p-2 text-surface-foreground transition-colors hover:border-accent/50 hover:text-accent md:hidden"
+          className="inline-flex items-center justify-center rounded-lg border border-border p-2 text-surface-foreground transition-colors hover:border-accent/50 hover:text-accent md:hidden"
           aria-expanded={open}
           aria-controls={panelId}
           onClick={() => setOpen((v) => !v)}
@@ -89,7 +88,7 @@ export function Navigation() {
       <div
         id={panelId}
         className={cn(
-          "border-t border-white/10 bg-charcoal/95 md:hidden",
+          "border-t border-border bg-charcoal md:hidden",
           open ? "block" : "hidden",
         )}
         role="dialog"
@@ -101,21 +100,17 @@ export function Navigation() {
             <Link
               key={item.href}
               href={item.href}
-              className="rounded-lg px-3 py-3 text-base font-medium text-surface-foreground hover:bg-white/5 hover:text-accent"
+              className={cn(
+                "rounded-lg px-3 py-3 text-base font-medium",
+                pathname === item.href
+                  ? "bg-surface text-accent"
+                  : "text-surface-foreground hover:bg-surface",
+              )}
               onClick={close}
             >
               {item.label}
             </Link>
           ))}
-          <Link
-            href={profile.youtube}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-2 rounded-lg border border-accent/30 bg-accent/10 px-3 py-3 text-center text-sm font-semibold uppercase tracking-wider text-accent"
-            onClick={close}
-          >
-            Watch on YouTube
-          </Link>
         </nav>
       </div>
     </header>

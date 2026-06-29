@@ -18,21 +18,35 @@ function LogoImg({
 }) {
   return (
     // eslint-disable-next-line @next/next/no-img-element -- local SVG marks; avoids optimizer quirks
-    <img src={src} alt={alt} className={className} loading="lazy" decoding="async" />
+    <img
+      src={src}
+      alt={alt}
+      className={cn("object-contain drop-shadow-[0_2px_8px_rgba(0,0,0,0.12)]", className)}
+      loading="lazy"
+      decoding="async"
+    />
   );
 }
 
-function LightPanel({ children }: { children: React.ReactNode }) {
+function LogoStage({
+  tone,
+  children,
+  className,
+}: {
+  tone: "light" | "dark";
+  children: React.ReactNode;
+  className?: string;
+}) {
   return (
-    <div className="rounded-2xl border border-black/10 bg-gradient-to-b from-white to-zinc-100 px-4 py-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.9)]">
-      {children}
-    </div>
-  );
-}
-
-function DarkPanel({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="rounded-2xl border border-white/10 bg-charcoal/90 px-4 py-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]">
+    <div
+      className={cn(
+        "flex w-full items-center justify-center rounded-xl px-4 py-4 sm:px-5 sm:py-5",
+        tone === "light"
+          ? "border border-black/[0.08] bg-zinc-50"
+          : "border border-white/12 bg-[#121218]",
+        className,
+      )}
+    >
       {children}
     </div>
   );
@@ -47,16 +61,16 @@ function BrandWordmark({
   className?: string;
 }) {
   return (
-    <DarkPanel>
+    <LogoStage tone="dark">
       <p
         className={cn(
-          "text-center font-display text-lg font-semibold leading-snug tracking-tight text-surface-foreground sm:text-xl",
+          "text-center font-display text-lg font-semibold leading-snug tracking-tight text-white sm:text-xl",
           className,
         )}
       >
         {children}
       </p>
-    </DarkPanel>
+    </LogoStage>
   );
 }
 
@@ -74,235 +88,237 @@ export function ProjectLogoMarks({
   switch (projectId) {
     case "youtube-ai":
       return (
-        <LightPanel>
+        <LogoStage tone="light">
           <SiYoutube
-            className="size-[4.5rem] text-[#FF0000] drop-shadow-[0_12px_24px_rgba(255,0,0,0.35)] sm:size-[5.25rem]"
+            className="size-16 text-[#FF0000] sm:size-20"
             aria-hidden
           />
           <span className="sr-only">YouTube</span>
-        </LightPanel>
+        </LogoStage>
       );
 
     case "getty-met":
       return (
-        <div className="flex flex-wrap items-center justify-center gap-5 sm:gap-8">
-          <LightPanel>
+        <div className="flex w-full flex-wrap items-center justify-center gap-4 sm:gap-6">
+          <LogoStage tone="light" className="min-w-[9rem] flex-1">
             <LogoImg
               src="/logos/getty-images.svg"
               alt="Getty Images"
-              className="h-9 w-auto max-w-[min(200px,42vw)] object-contain sm:h-11"
+              className="h-10 w-full max-w-[200px] sm:h-12"
             />
-          </LightPanel>
-          <DarkPanel>
+          </LogoStage>
+          <LogoStage tone="dark" className="min-w-[9rem] flex-1">
             <LogoImg
               src="/logos/met-gala.svg"
               alt="Met Gala"
-              className="h-10 w-auto max-w-[min(200px,42vw)] object-contain sm:h-12"
+              className="h-10 w-full max-w-[200px] sm:h-12"
             />
-          </DarkPanel>
+          </LogoStage>
         </div>
       );
 
     case "recording-academy":
       return (
-        <DarkPanel>
+        <LogoStage tone="dark">
           <LogoImg
             src="/logos/recording-academy.svg"
             alt="The Recording Academy"
-            className="h-24 w-auto max-w-[min(260px,80vw)] object-contain sm:h-28"
+            className="h-20 w-full max-w-[280px] sm:h-24"
           />
-        </DarkPanel>
+        </LogoStage>
       );
 
     case "imex":
       return (
-        <DarkPanel>
+        <LogoStage tone="light">
           <LogoImg
             src="/logos/imex.svg"
             alt="IMEX"
-            className="h-10 w-auto object-contain sm:h-11"
+            className="h-12 w-full max-w-[200px] sm:h-14"
           />
-        </DarkPanel>
+        </LogoStage>
       );
 
     case "possible":
       return (
-        <DarkPanel>
-          <div className="flex flex-col items-center gap-4">
+        <LogoStage tone="dark">
+          <div className="flex w-full flex-col items-center gap-4">
             <LogoImg
               src="/logos/possible.svg"
               alt="POSSIBLE"
-              className="h-9 w-auto max-w-[min(240px,70vw)] object-contain sm:h-10"
+              className="h-10 w-full max-w-[240px] sm:h-12"
             />
-            <p className="text-center text-[10px] font-semibold uppercase tracking-wider text-zinc-500">
+            <p className="text-center text-[10px] font-semibold uppercase tracking-wider text-zinc-400">
               Floor partners (examples)
             </p>
             <div
               className="flex flex-wrap items-center justify-center gap-5"
               aria-hidden
             >
-              <SiSap className="h-8 w-10 text-[#008FD3]" />
-              <SiGitlab className="size-9 text-[#FC6D26]" />
-              <SiOpenai className="size-8 text-white" />
+              <SiSap className="h-9 w-11 text-[#008FD3]" />
+              <SiGitlab className="size-10 text-[#FC6D26]" />
+              <SiOpenai className="size-9 text-white" />
             </div>
             <span className="sr-only">
               SAP, GitLab, and OpenAI — examples from event backdrops referenced in
               copy
             </span>
           </div>
-        </DarkPanel>
+        </LogoStage>
       );
 
     case "miami-swim":
       return (
-        <DarkPanel>
+        <LogoStage tone="dark">
           <LogoImg
             src="/logos/miami-swim-week.svg"
             alt="Miami Swim Week"
-            className="h-20 w-auto max-w-[min(280px,85vw)] object-contain sm:h-24"
+            className="h-20 w-full max-w-[280px] sm:h-24"
           />
-        </DarkPanel>
+        </LogoStage>
       );
 
     case "dope-labs":
       return (
-        <LightPanel>
+        <LogoStage tone="light">
           <div className="flex flex-col items-center gap-2">
             <LogoImg
               src="/logos/spotify.svg"
               alt="Spotify"
-              className="size-14 object-contain sm:size-16"
+              className="size-16 sm:size-20"
             />
             <span className="text-center text-[10px] font-semibold uppercase tracking-wider text-zinc-600">
               Dope Labs · Gimlet
             </span>
           </div>
-        </LightPanel>
+        </LogoStage>
       );
 
     case "sistas-in-sales":
       return (
-        <DarkPanel>
+        <LogoStage tone="light">
           <LogoImg
             src="/logos/sistas-in-sales.svg"
             alt="Sistas in Sales"
-            className="h-16 w-auto max-w-[min(220px,75vw)] object-contain sm:h-[4.5rem]"
+            className="h-20 w-full max-w-[240px] sm:h-24"
           />
-        </DarkPanel>
+        </LogoStage>
       );
 
     case "canva":
       return (
-        <LightPanel>
+        <LogoStage tone="light">
           <SiCanva
-            className="size-[4.5rem] text-[#00C4CC] drop-shadow-[0_12px_24px_rgba(0,196,204,0.35)] sm:size-[5.25rem]"
+            className="size-16 text-[#00C4CC] sm:size-20"
             aria-hidden
           />
           <span className="sr-only">Canva</span>
-        </LightPanel>
+        </LogoStage>
       );
 
     case "hitouch":
       return (
-        <DarkPanel>
+        <LogoStage tone="dark">
           <LogoImg
             src="/logos/hitouch.svg"
             alt="HiTouch"
-            className="h-12 w-auto max-w-[min(240px,80vw)] object-contain sm:h-14"
+            className="h-12 w-full max-w-[260px] sm:h-14"
           />
-        </DarkPanel>
+        </LogoStage>
       );
 
     case "visit-org":
       return (
-        <DarkPanel>
+        <LogoStage tone="light">
           <LogoImg
             src="/logos/visit-org.png"
             alt="Visit.org"
-            className="h-10 w-auto max-w-[min(260px,80vw)] object-contain sm:h-11"
+            className="h-12 w-full max-w-[280px] sm:h-14"
           />
-        </DarkPanel>
+        </LogoStage>
       );
 
     case "ahk":
       return (
-        <LightPanel>
+        <LogoStage tone="light">
           <LogoImg
             src="/logos/ahk-usa.svg"
             alt="German American Chamber of Commerce (AHK USA)"
-            className="h-14 w-auto max-w-[min(320px,90vw)] object-contain sm:h-16"
+            className="h-14 w-full max-w-[320px] sm:h-16"
           />
-        </LightPanel>
+        </LogoStage>
       );
 
     case "radio-one":
       return (
-        <LightPanel>
-          <LogoImg
-            src="/logos/urban-one.png"
-            alt="Urban One"
-            className="h-10 w-auto max-w-[min(220px,75vw)] object-contain sm:h-11"
-          />
-          <p className="mt-2 text-center text-[10px] font-semibold uppercase tracking-wider text-zinc-500">
-            Radio One
-          </p>
-          <span className="sr-only">Radio One (Urban One)</span>
-        </LightPanel>
+        <LogoStage tone="light">
+          <div className="flex flex-col items-center">
+            <LogoImg
+              src="/logos/urban-one.png"
+              alt="Urban One"
+              className="h-11 w-full max-w-[240px] sm:h-12"
+            />
+            <p className="mt-2 text-center text-[10px] font-semibold uppercase tracking-wider text-zinc-500">
+              Radio One
+            </p>
+            <span className="sr-only">Radio One (Urban One)</span>
+          </div>
+        </LogoStage>
       );
 
     case "city-of-philadelphia":
       return (
-        <LightPanel>
+        <LogoStage tone="light">
           <LogoImg
             src="/logos/city-of-philadelphia.svg"
             alt="City of Philadelphia"
-            className="h-24 w-auto max-w-[min(300px,90vw)] object-contain sm:h-28"
+            className="h-24 w-full max-w-[300px] sm:h-28"
           />
-        </LightPanel>
+        </LogoStage>
       );
 
     case "ndsu":
       return (
-        <DarkPanel>
+        <LogoStage tone="light">
           <LogoImg
             src="/logos/ndsu-bison-wordmark.svg"
             alt="North Dakota State University"
-            className="h-24 w-auto max-w-[min(280px,85vw)] object-contain sm:h-28"
+            className="h-24 w-full max-w-[280px] sm:h-28"
           />
-        </DarkPanel>
+        </LogoStage>
       );
 
     case "black-girl-art-show":
       return (
-        <DarkPanel>
+        <LogoStage tone="dark">
           <LogoImg
             src="/logos/black-girl-art-show.svg"
             alt="A Spectacular Black Girl Art Show"
-            className="h-28 w-auto max-w-[min(280px,90vw)] object-contain sm:h-32"
+            className="h-24 w-full max-w-[300px] sm:h-28"
           />
-        </DarkPanel>
+        </LogoStage>
       );
 
     case "fader":
       return (
-        <DarkPanel>
+        <LogoStage tone="dark">
           <LogoImg
             src="/logos/fader.svg"
             alt="FADER"
-            className="h-24 w-auto max-w-[min(260px,85vw)] object-contain sm:h-28"
+            className="h-14 w-full max-w-[260px] sm:h-16"
           />
-        </DarkPanel>
+        </LogoStage>
       );
 
     case "parsons":
       return (
-        <LightPanel>
+        <LogoStage tone="light">
           <LogoImg
             src="/logos/parsons.svg"
             alt="Parsons School of Design"
-            className="h-24 w-auto max-w-[min(300px,90vw)] object-contain sm:h-28"
+            className="h-20 w-full max-w-[300px] sm:h-24"
           />
-        </LightPanel>
+        </LogoStage>
       );
 
     default:

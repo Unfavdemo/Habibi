@@ -1,25 +1,19 @@
-import { About } from "@/components/sections/About";
-import { Contact } from "@/components/sections/Contact";
-import { Hero } from "@/components/sections/Hero";
-import { Media } from "@/components/sections/Media";
-import { Platform } from "@/components/sections/Platform";
-import { Timeline } from "@/components/sections/Timeline";
-import { Work } from "@/components/sections/Work";
-import { GiantDivider } from "@/components/effects/MarqueeBand";
+import { HomeHero } from "@/components/sections/home/HomeHero";
+import { HonestQuote } from "@/components/sections/home/HonestQuote";
+import { ServicesPreview } from "@/components/sections/home/ServicesPreview";
+import { PartnerLogos } from "@/components/sections/home/PartnerLogos";
+import { Testimonials } from "@/components/sections/home/Testimonials";
+import { HomeCTA } from "@/components/sections/home/HomeCTA";
 
 export default function Home() {
   return (
     <main id="main" className="flex-1">
-      <Hero />
-      <GiantDivider text="STAY PHRESH" />
-      <About />
-      <GiantDivider text="UNDER PRESSURE" />
-      <Platform />
-      <Media />
-      <GiantDivider text="FOR THE CULTURE" />
-      <Work />
-      <Timeline />
-      <Contact />
+      <HomeHero />
+      <HonestQuote />
+      <ServicesPreview />
+      <PartnerLogos />
+      <Testimonials />
+      <HomeCTA />
     </main>
   );
 }

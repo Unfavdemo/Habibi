@@ -2,20 +2,55 @@
 @config "../tailwind.config.ts";
 
 :root {
-  --color-bg: #050508;
-  --color-charcoal-elevated: #0c0c10;
-  --color-elevated: #121218;
-  --color-foreground: #f4f4f5;
-  --color-muted: #9ca3af;
-  --color-accent: #39ff14;
-  --color-accent-warm: #ff4d00;
-  --color-accent-deep: #22c55e;
-  --color-flair: #00e5ff;
-  --color-accent-glow: rgba(57, 255, 20, 0.45);
-  --color-pressure-glow: rgba(255, 77, 0, 0.4);
-  --color-mesh-1: rgba(57, 255, 20, 0.12);
-  --color-mesh-2: rgba(255, 77, 0, 0.1);
-  --color-mesh-3: rgba(0, 229, 255, 0.08);
+  --color-bg: #ffffff;
+  --color-charcoal-elevated: #ffffff;
+  --color-elevated: #f8f8f8;
+  --color-foreground: #000000;
+  --color-muted: #5c6370;
+  --color-accent: #7820f6;
+  --color-accent-warm: #6fe1ad;
+  --color-accent-deep: #5a18c4;
+  --color-flair: #9ff7b6;
+  --color-slate: #2f354a;
+  --color-border: rgba(47, 53, 74, 0.14);
+  --color-accent-glow: rgba(120, 32, 246, 0.3);
+  --color-mesh-1: rgba(120, 32, 246, 0.08);
+  --color-mesh-2: rgba(111, 225, 173, 0.1);
+}
+
+[data-theme="phresh"] {
+  --color-bg: #000000;
+  --color-charcoal-elevated: #2f354a;
+  --color-elevated: #1a1f2e;
+  --color-foreground: #ffffff;
+  --color-muted: #9ff7b6;
+  --color-accent: #7820f6;
+  --color-accent-warm: #6fe1ad;
+  --color-accent-deep: #9ff7b6;
+  --color-flair: #9ff7b6;
+  --color-slate: #2f354a;
+  --color-border: rgba(255, 255, 255, 0.12);
+  --color-accent-glow: rgba(120, 32, 246, 0.45);
+  --color-mesh-1: rgba(120, 32, 246, 0.15);
+  --color-mesh-2: rgba(111, 225, 173, 0.12);
+  --color-mesh-3: rgba(159, 247, 182, 0.08);
+}
+
+/* Davetica — loads when client adds licensed files to public/fonts/ */
+@font-face {
+  font-family: "Davetica";
+  src: url("/fonts/Davetica-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Davetica";
+  src: url("/fonts/Davetica-Italic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
 }
 
 @layer utilities {
@@ -23,32 +58,19 @@
     background-image: linear-gradient(
       105deg,
       var(--color-foreground) 0%,
-      var(--color-accent) 35%,
-      var(--color-accent-warm) 68%,
-      var(--color-flair) 100%
+      var(--color-accent) 45%,
+      var(--color-accent-warm) 100%
     );
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
   }
 
-  .text-gradient-phresh {
+  [data-theme="phresh"] .text-gradient-phresh {
     background-image: linear-gradient(
       90deg,
       var(--color-accent) 0%,
-      #b8ff3c 50%,
-      var(--color-accent-deep) 100%
-    );
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-
-  .text-gradient-pressure {
-    background-image: linear-gradient(
-      90deg,
-      var(--color-accent-warm) 0%,
-      #ff8c42 50%,
+      var(--color-accent-warm) 50%,
       var(--color-flair) 100%
     );
     -webkit-background-clip: text;
@@ -56,27 +78,14 @@
     color: transparent;
   }
 
-  .mesh-backdrop {
+  [data-theme="phresh"] .mesh-backdrop {
     background-image:
       radial-gradient(ellipse 100% 70% at 100% -10%, var(--color-mesh-1), transparent 52%),
       radial-gradient(ellipse 90% 55% at -5% 105%, var(--color-mesh-2), transparent 48%),
       radial-gradient(ellipse 55% 45% at 85% 95%, var(--color-mesh-3), transparent 50%);
   }
 
-  .mesh-backdrop-soft {
-    background-image:
-      radial-gradient(ellipse 80% 50% at 90% 0%, var(--color-mesh-1), transparent 55%),
-      radial-gradient(ellipse 70% 45% at 0% 100%, var(--color-mesh-2), transparent 50%);
-  }
-
-  .pressure-grid {
-    background-image:
-      linear-gradient(rgba(57, 255, 20, 0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(57, 255, 20, 0.04) 1px, transparent 1px);
-    background-size: 48px 48px;
-  }
-
-  .glow-line {
+  [data-theme="phresh"] .glow-line {
     background: linear-gradient(
       90deg,
       transparent,
@@ -86,84 +95,6 @@
       transparent
     );
   }
-
-  .text-outline {
-    -webkit-text-stroke: 1px rgba(57, 255, 20, 0.35);
-    color: transparent;
-  }
-
-  .text-outline-warm {
-    -webkit-text-stroke: 1px rgba(255, 77, 0, 0.4);
-    color: transparent;
-  }
-
-  .text-outline-white {
-    -webkit-text-stroke: 1px rgba(244, 244, 245, 0.12);
-    color: transparent;
-  }
-
-  .grain-overlay {
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    opacity: 0.035;
-    mix-blend-mode: overlay;
-  }
-
-  .corner-brackets {
-    background:
-      linear-gradient(var(--color-accent), var(--color-accent)) top left / 16px 2px no-repeat,
-      linear-gradient(var(--color-accent), var(--color-accent)) top left / 2px 16px no-repeat,
-      linear-gradient(var(--color-accent-warm), var(--color-accent-warm)) top right / 16px 2px no-repeat,
-      linear-gradient(var(--color-accent-warm), var(--color-accent-warm)) top right / 2px 16px no-repeat,
-      linear-gradient(var(--color-flair), var(--color-flair)) bottom left / 16px 2px no-repeat,
-      linear-gradient(var(--color-flair), var(--color-flair)) bottom left / 2px 16px no-repeat,
-      linear-gradient(var(--color-accent), var(--color-accent)) bottom right / 16px 2px no-repeat,
-      linear-gradient(var(--color-accent), var(--color-accent)) bottom right / 2px 16px no-repeat;
-  }
-
-  .glitch-text {
-    position: relative;
-  }
-
-  .glitch-text:hover {
-    animation: glitch-skew 0.4s ease infinite;
-  }
-
-  @keyframes glitch-skew {
-    0%, 100% { transform: skew(0deg); }
-    20% { transform: skew(-1deg); }
-    40% { transform: skew(1deg); }
-    60% { transform: skew(-0.5deg); }
-    80% { transform: skew(0.5deg); }
-  }
-
-  .float-slow {
-    animation: float-slow 6s ease-in-out infinite;
-  }
-
-  @keyframes float-slow {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-8px); }
-  }
-
-  .belief-carousel {
-    scroll-behavior: smooth;
-    scroll-snap-type: x proximity;
-    scroll-padding-inline: max(1rem, calc((100% - 340px) / 2));
-    overscroll-behavior-x: contain;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-  }
-
-  .belief-carousel::-webkit-scrollbar {
-    display: none;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .belief-carousel {
-      scroll-behavior: auto;
-    }
-  }
 }
 
 @layer base {
@@ -172,7 +103,12 @@
   }
 
   ::selection {
-    background: rgba(57, 255, 20, 0.25);
+    background: rgba(120, 32, 246, 0.2);
+    color: var(--color-foreground);
+  }
+
+  [data-theme="phresh"] ::selection {
+    background: rgba(111, 225, 173, 0.25);
     color: var(--color-foreground);
   }
 
